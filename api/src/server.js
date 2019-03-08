@@ -89,8 +89,6 @@ app.get('/task/list', (req, res) => {
     res.send(result)
 })
 
-
-
 app.get('/health', (req, res) => res.send(200))
 
 const port = 8001
