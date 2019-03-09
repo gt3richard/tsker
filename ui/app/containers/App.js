@@ -1,15 +1,20 @@
-// @flow
-import * as React from 'react';
+import React, { Component } from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Tasks from '../components/Tasks';
+import TaskBar from '../components/TaskBar';
+import store from '../store/TskleyStore';
 
-type Props = {
-  children: React.Node
-};
 
 export default class App extends React.Component<Props> {
   props: Props;
 
   render() {
-    const { children } = this.props;
-    return <React.Fragment>{children}</React.Fragment>;
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <TaskBar store={store} />
+        <Tasks store={store} />
+      </React.Fragment>
+    );
   }
 }
