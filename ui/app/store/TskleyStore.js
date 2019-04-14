@@ -4,21 +4,21 @@ import axios from 'axios';
 const API = 'http://localhost:8001'
 
 class TskleyStore {
-    teamName = 'Gold Team'
-    user = {}
-    userName = ''
+  teamName = 'Gold Team'
+  user = {}
+  userName = ''
 
-    getUser(id) {
-      axios.get(`${API}/user?id=${id}`)
-      .then(response => {
-        console.log(response.data)
-        this.user = response.data
-        this.userName = response.data.name
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-    }
+  getUser(id) {
+    axios.get(`${API}/user?id=${id}`)
+    .then(response => {
+      console.log(response.data)
+      this.user = response.data
+      this.userName = response.data.name
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
 }
 
 decorate(TskleyStore, {
