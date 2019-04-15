@@ -28,10 +28,18 @@
     .task {
         font-size: .8em;
         padding: 5px;
+
+        .icon {
+            color: grey;
+        }
     }
 
     .taskAdd {
         font-size: .8em;
+        padding: 5px;
+    }
+
+    .icon {
         padding: 5px;
     }
 }
@@ -67,6 +75,10 @@
             color: grey;
             font-style: italic;
         }
+
+        .icon {
+            padding: 5px;
+        }
     }
 
     .messageList {
@@ -82,5 +94,21 @@
         position: fixed;
         bottom: 0px;
         width: 42vw;
+    }
+
+    .blue {
+        color: lightskyblue;
+    }
+
+    .orange {
+        color: orange;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .green {
+        color: green;
     }
 }

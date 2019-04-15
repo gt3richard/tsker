@@ -5,6 +5,15 @@ import '../../assets/Tasks.scss';
 
 import Intro from '../component/Intro.js'
 
+const user_icons = [
+  "fas fa-square",
+  "fas fa-circle"
+]
+
+const user_icon_color = [
+  "red", "orange", "blue", "green"
+]
+
 const tasks = [
   { title: 'Submit report to team' }, 
   { title: 'Fill out form' }
@@ -24,7 +33,10 @@ export default class Tasks extends Component {
   render() {
 
     const taskList = tasks.map((task, idx) => {
-      return <div className="task" key={idx}>{task.title}</div>
+      return <div className="task" key={idx}>
+        <div className={user_icons[0] + " icon"}></div>
+        {task.title}
+      </div>
     })
 
     var messageMap = {}
@@ -41,7 +53,10 @@ export default class Tasks extends Component {
     const messageList = Object.keys(messageMap).map((key, idx) => {
 
       const msgs = messageMap[key].map((msg, idx) => {
-        return <div className="text" key={idx}>{msg.user_id} {msg.text}</div>
+        return <div className="text" key={idx}>
+          <div className={user_icons[0] + " " + user_icon_color[msg.user_id] + " icon"}></div>
+          {msg.text}
+          </div>
       })
 
       return [
@@ -61,7 +76,7 @@ export default class Tasks extends Component {
               <div className="searchBox">Search ...</div>
               <div className="taskLabel">Ordered by priority</div>
               {taskList}
-              <div className="taskAdd">+ Add new task ...</div>
+              <div className="taskAdd"><div className="fas fa-plus icon"></div>Add new task ...</div>
             </div>
             <div className="col messenger">
               <div className="row">
