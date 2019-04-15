@@ -22,6 +22,7 @@
         color: darkgrey;
         font-size: .6em;
         margin-top: 20px;
+        font-style: italic;
     }
 
     .task {
@@ -32,5 +33,54 @@
     .taskAdd {
         font-size: .8em;
         padding: 5px;
+    }
+}
+
+.messenger {
+    height: 100vh;
+    width: 100vw;
+
+    text-align: left;
+
+    .title {
+        margin-left: 20px;
+        font-weight: 700;
+    }
+
+    .description {
+        margin-left: 20px;
+        font-size: .7em;
+    }
+
+    .bar {
+        height: 5px;
+        background-color: rgb(51, 51, 51);
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .message {
+        font-size: .7em;
+        margin-top: 10px;
+
+        .date {
+            color: grey;
+            font-style: italic;
+        }
+    }
+
+    .messageList {
+        height: 50vh;
+    }
+
+    .messageBox {
+        margin-left: 10px;
+        margin-bottom: 10px;
+        border-style: solid;
+        border-width: 1px;
+        padding-left: 20px;
+        position: fixed;
+        bottom: 0px;
+        width: 42vw;
     }
 }
