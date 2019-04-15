@@ -1,0 +1,36 @@
+.tasklist {
+    background-color: rgb(51, 51, 51);
+    color: white;
+    height: 100vh;
+    width: 100vw;
+
+    text-align: left;
+
+    .teamName {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .searchBox {
+        margin-left: 10px;
+        border-style: solid;
+        border-width: 1px;
+        padding-left: 20px;
+    }
+
+    .taskLabel {
+        color: darkgrey;
+        font-size: .6em;
+        margin-top: 20px;
+    }
+
+    .task {
+        font-size: .8em;
+        padding: 5px;
+    }
+
+    .taskAdd {
+        font-size: .8em;
+        padding: 5px;
+    }
+}

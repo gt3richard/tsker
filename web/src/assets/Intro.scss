@@ -1,0 +1,33 @@
+.intro {
+    .intro-title {
+        margin-bottom: 75px;
+    }
+
+    .intro-block {
+        max-width: 540px;
+        font-size: .8em;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .intro {
+
+        hr {
+            max-width: 200px;
+        }
+
+        .intro-title {
+            margin-bottom: 30px;
+        }
+    
+        .intro-block {
+            max-width: 540px;
+            font-size: .8em;
+
+            p {
+                display: inline-block;
+                max-width: 300px; 
+            }
+        }
+    }
+}

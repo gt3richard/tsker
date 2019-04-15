@@ -1,0 +1,47 @@
+html,
+body {
+    height: 100%;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.helpLink {
+    padding: 0;
+    font-size: .8rem;
+}
+
+.authentication__form {
+    min-width: 20rem;
+}
+
+.authentication__input {
+    width: 100%
+}
+
+.textLink {
+    height: 1.5rem;
+    line-height: 1.5rem;
+}
+
+.textLink input {
+    padding: 1px 7px 2px 7px;
+}
+
+.errorText {
+    color: red;
+    margin-bottom: .5rem;
+}
+
+.navbar {
+    background-color: white;
+}
+
+.btn {
+    margin-left: 10px;
+}
