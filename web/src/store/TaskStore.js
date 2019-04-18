@@ -12,6 +12,7 @@ class TaskStore {
     userData = {}
     tasks = []
     messages = []
+    activeTaskId = ""
     messageTitle = ""
     messageDescription = ""
 
@@ -24,12 +25,13 @@ class TaskStore {
 
     getTasks() {
         this.tasks = [
-            { id: '1', title: 'Submit report to team', description: "You need to submit the report to the team." }, 
-            { id: '2', title: 'Fill out form', description: "You need to fill out the authorization form and send it over to the team by next week." }
+            { id: '1', title: 'Submit report to team', description: "You need to submit the report to the team.", state: "" }, 
+            { id: '2', title: 'Fill out form', description: "You need to fill out the authorization form and send it over to the team by next week.", state: "" }
           ]
     }
 
     getTask(id) {
+        this.activeTaskId = id
         this.messageTitle = this.tasks.filter(f => f.id === id)[0].title
         this.messageDescription = this.tasks.filter(f => f.id === id)[0].description
 
@@ -53,6 +55,10 @@ class TaskStore {
               ]
         }
     }
+
+    updateTaskState(state) {
+        this.tasks.filter(f => f.id === this.activeTaskId)[0].state = state
+    }
 }
 
 decorate(TaskStore, {
@@ -62,11 +68,13 @@ decorate(TaskStore, {
     edit: observable,
     tasks: observable,
     messages: observable,
+    activeTaskId: observable,
     messageTitle: observable,
     messageDescription: observable,
     getTasks: action,
     getTask: action,
-    getUser: action
+    getUser: action,
+    updateTaskState: action
 })
 
 const store = new TaskStore();

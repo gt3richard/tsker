@@ -13,6 +13,16 @@ const user_icon_color = [
 ]
 
 export default class Messenger extends Component {
+  constructor(props) {
+    super(props)
+
+    this.onTaskStateChange = this.onTaskStateChange.bind(this)
+  }
+
+  onTaskStateChange = (state) => {
+    console.log(state)
+    this.props.store.updateTaskState(state)
+  }
 
   render() {
     var messageMap = {}
@@ -42,12 +52,24 @@ export default class Messenger extends Component {
       ]
     })
 
+    const taskState = [
+      <div className="btn-group btn-group-toggle" data-toggle="buttons" key="taskSate">
+        <label className="btn btn-secondary" onClick={() => this.onTaskStateChange("completed")}>
+          <input type="radio" name="options" id="completed"/> Completed
+        </label>
+        <label className="btn btn-secondary" onClick={() => this.onTaskStateChange("blocked")}>
+          <input type="radio" name="options" id="blocked" /> Blocked
+        </label>
+      </div>
+    ]
+
     return (
       <div className="col messenger">
           <div className="row">
             <div className="col">
                 <div className="title">{this.props.store.messageTitle}</div>
                 <div className="description">{this.props.store.messageDescription}</div>
+                {this.props.store.messageTitle && taskState}
                 <div className="bar"></div>
             </div>
           </div>
