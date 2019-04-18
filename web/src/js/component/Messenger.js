@@ -16,12 +16,25 @@ export default class Messenger extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      message: ''
+    }
+
     this.onTaskStateChange = this.onTaskStateChange.bind(this)
+    this.onMessageEnter = this.onMessageEnter.bind(this)
   }
 
   onTaskStateChange = (state) => {
     console.log(state)
     this.props.store.updateTaskState(state)
+  }
+
+  onMessageEnter = (event) => {
+    this.setState({message: event.target.value})
+    if (event.key === 'Enter' && event.target.value.length > 0) {
+      this.props.store.addMessage(event.target.value)
+      this.setState({message: ''})
+    }
   }
 
   render() {
@@ -63,6 +76,12 @@ export default class Messenger extends Component {
       </div>
     ]
 
+    const messageInput = [
+      <div className="input-group mb-3" key="messageInput">
+        <input type="text" className="form-control messageBox" placeholder="Enter message ..." value={this.state.message} onChange={this.onMessageEnter} onKeyDown={this.onMessageEnter} aria-describedby="inputGroup-sizing-default" />
+      </div>
+    ]
+
     return (
       <div className="col messenger">
           <div className="row">
@@ -74,15 +93,13 @@ export default class Messenger extends Component {
             </div>
           </div>
           <div className="row">
-            <div className="col pre-scrollable messageList">
+            <div className="col messageList">
                 {messageList}
             </div>
           </div>
           <div className="row">
             <div className="col">
-                <div className="input-group mb-3">
-                  <input type="text" className="form-control messageBox" placeholder="Enter message ..." aria-describedby="inputGroup-sizing-default" />
-                </div>
+            {this.props.store.messageTitle && messageInput}
             </div>
           </div>
       </div>

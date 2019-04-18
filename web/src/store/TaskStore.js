@@ -1,6 +1,7 @@
 import {decorate, observable, action} from "mobx"
 
 const uuidv1 = require('uuid/v1');
+const moment = require('moment');
 
 class TaskStore {
 
@@ -59,6 +60,15 @@ class TaskStore {
     updateTaskState(state) {
         this.tasks.filter(f => f.id === this.activeTaskId)[0].state = state
     }
+
+    addMessage(message) {
+        var utcDate = moment.utc().format("MM/DD/YYYY HH:mm:ss")
+        this.messages.push({
+            user_id: this.userId,
+            date: utcDate,
+            text: message
+        })
+    }
 }
 
 decorate(TaskStore, {
@@ -74,7 +84,8 @@ decorate(TaskStore, {
     getTasks: action,
     getTask: action,
     getUser: action,
-    updateTaskState: action
+    updateTaskState: action,
+    addMessage: action
 })
 
 const store = new TaskStore();
