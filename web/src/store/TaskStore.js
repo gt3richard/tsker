@@ -1,5 +1,4 @@
 import {decorate, observable, action} from "mobx"
-import { getTasks, putTasks } from '../service/Api.js'
 
 const uuidv1 = require('uuid/v1');
 
@@ -10,111 +9,50 @@ class TaskStore {
     accessToken = ""
     edit = false
     
-    stateMode = "simple"
-    resetMode = "monthly"
+    userData = {}
     tasks = []
+    messages = []
+    messageTitle = ""
+    messageDescription = ""
 
-    getStates() {
-        if(this.stateMode === 'simple') {
-            return {
-                "working": "done",
-                "done": "not-done",
-                "not-done": "done"
-            }
-        } else {
-            return {
-                "working": "done",
-                "done": "not-done",
-                "not-done": "working"
-              }
+    getUser() {
+        this.userData = {
+            team: 'Team Blue',
+            manager: '1'
         }
     }
 
     getTasks() {
-        const callback = (result) => { 
-            this.tasks = result.tasks || []
-            this.stateMode = result.stateMode || 'simple'
-            this.resetMode = result.resetMode || 'monthly'  
-        }
-        getTasks(this.userId, this.accessToken, callback)
+        this.tasks = [
+            { id: '1', title: 'Submit report to team', description: "You need to submit the report to the team." }, 
+            { id: '2', title: 'Fill out form', description: "You need to fill out the authorization form and send it over to the team by next week." }
+          ]
     }
 
     getTask(id) {
-        return this.tasks.filter((t) => t.id === id)[0]
-    }
+        this.messageTitle = this.tasks.filter(f => f.id === id)[0].title
+        this.messageDescription = this.tasks.filter(f => f.id === id)[0].description
 
-    updateUserData() {
-        const callback = (result) => {  }
-        putTasks(this.userId, this.tasks, this.stateMode, this.resetMode, this.accessToken, callback)
+        if(id === '1') {
+            this.messages = [
+                { user_id: '1', date: '2/4/2019 10:00:00', text: 'Can you give me a status update?' },
+                { user_id: '2', date: '2/4/2019 11:00:00', text: 'I\'ve filled out the form but am waiting to get it authorized.' },
+                { user_id: '2', date: '2/6/2019 11:00:00', text: 'Task is Blocked' },
+                { user_id: '2', date: '2/6/2019 12:00:00', text: 'The person is out on vacation so I can get it done next week.' },
+                { user_id: '1', date: '2/6/2019 13:00:00', text: 'Send it over to me and I can authorize it.' },
+                { user_id: '2', date: '2/7/2019 11:00:00', text: 'Task is Completed' }
+              ]
+        } else {
+            this.messages = [
+                { user_id: '1', date: '2/4/2019 10:00:00', text: 'Hey, Can you give me a status update?' },
+                { user_id: '2', date: '2/4/2019 11:00:00', text: 'I\'ve filled out the form but am waiting to get it authorized.' },
+                { user_id: '2', date: '2/6/2019 11:00:00', text: 'Task is Blocked' },
+                { user_id: '2', date: '2/6/2019 12:00:00', text: 'The person is out on vacation so I can get it done next week.' },
+                { user_id: '1', date: '2/6/2019 13:00:00', text: 'Send it over to me and I can authorize it.' },
+                { user_id: '2', date: '2/7/2019 11:00:00', text: 'Task is Completed' }
+              ]
+        }
     }
-
-    updateTaskState(id, state) {
-        this.tasks = this.tasks.map((t) => {
-            if(t.id === id) { t.state = state }
-            return t
-        })
-        const callback = (result) => {  }
-        putTasks(this.userId, this.tasks, this.stateMode, this.resetMode, this.accessToken, callback)
-    }
-
-    updateTask(id, name, date) {
-        this.tasks = this.tasks.map((t) => {
-            if(t.id === id) { 
-                t.name = name 
-                t.date = date
-            }
-            return t
-        })
-        const callback = (result) => {  }
-        putTasks(this.userId, this.tasks, this.stateMode, this.resetMode, this.accessToken, callback)
-    }
-
-    addTask(name, date) {
-        const task = {"id": uuidv1(), "name": name, "date": date, "state": "not-done"}
-        this.tasks.push(task)
-        const callback = (result) => { }
-        putTasks(this.userId, this.tasks, this.stateMode, this.resetMode, this.accessToken, callback)
-    }
-
-    deleteTask(id) {
-        this.tasks = this.tasks.filter(f => f.id !== id)
-        const callback = (result) => { }
-        putTasks(this.userId, this.tasks, this.stateMode, this.resetMode, this.accessToken, callback)
-    }
-
-    month = {
-        "1": "1st",
-        "2": "2nd",
-        "3": "3rd",
-        "4": "4th",
-        "5": "5th",
-        "6": "6th",
-        "7": "7th",
-        "8": "8th",
-        "9": "9th",
-        "10": "10th",
-        "11": "11th",
-        "12": "12th",
-        "13": "13th",
-        "14": "14th",
-        "15": "15th",
-        "16": "16th",
-        "17": "17th",
-        "18": "18th",
-        "19": "19th",
-        "20": "20th",
-        "21": "21th",
-        "22": "22th",
-        "23": "23th",
-        "24": "24th",
-        "25": "25th",
-        "26": "26th",
-        "27": "27th",
-        "28": "28th",
-        "29": "29th",
-        "30": "30th",
-        "31": "31th"
-      }
 }
 
 decorate(TaskStore, {
@@ -122,17 +60,13 @@ decorate(TaskStore, {
     userId: observable,
     accessToken: observable,
     edit: observable,
-    stateMode: observable,
-    resetMode: observable,
     tasks: observable,
-    updateUserData: action,
-    getStates: action,
-    updateTaskState: action,
-    updateTask: action,
+    messages: observable,
+    messageTitle: observable,
+    messageDescription: observable,
+    getTasks: action,
     getTask: action,
-    addTask: action,
-    deleteTask: action,
-    month: observable
+    getUser: action
 })
 
 const store = new TaskStore();

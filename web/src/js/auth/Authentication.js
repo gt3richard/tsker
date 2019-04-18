@@ -35,6 +35,8 @@ export default class Authentication extends PureComponent {
     this.props.store.accessToken = user.signInUserSession.idToken.jwtToken
     this.setState({user:user}) 
     this.switchComponent("Authenticated")
+    this.props.store.getUser()
+    this.props.store.getTasks()
   }
 
   handleLogout = event => {
