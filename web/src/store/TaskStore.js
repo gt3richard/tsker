@@ -73,6 +73,12 @@ class TaskStore {
         })
     }
 
+    addTask(title) {
+        this.tasks.push(
+            { id: uuidv1(), title: title, state: "" }
+        )
+    }
+
     filterTasks(search) {
         this.filteredTasks = this.tasks.filter(f => f.title.toLowerCase().includes(search.toLowerCase()))
     }
@@ -93,7 +99,8 @@ decorate(TaskStore, {
     getTask: action,
     getUser: action,
     updateTaskState: action,
-    addMessage: action
+    addMessage: action,
+    addTask: action
 })
 
 const store = new TaskStore();

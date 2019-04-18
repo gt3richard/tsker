@@ -30,10 +30,11 @@ export default class Messenger extends Component {
   }
 
   onMessageEnter = (event) => {
-    this.setState({message: event.target.value})
     if (event.key === 'Enter' && event.target.value.length > 0) {
       this.props.store.addMessage(event.target.value)
       this.setState({message: ''})
+    } else {
+      this.setState({message: event.target.value})
     }
   }
 
