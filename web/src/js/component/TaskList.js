@@ -8,6 +8,12 @@ const user_icons = [
   "fas fa-circle"
 ]
 
+const task_state_color = {
+  "completed": "green",
+  "blocked": "red",
+  "": "grey"
+}
+
 export default class TaskList extends Component {
   constructor(props) {
     super(props)
@@ -22,7 +28,7 @@ export default class TaskList extends Component {
   render() {
     const taskList = this.props.store.tasks.map((task, idx) => {
       return <div className="task" key={idx} onClick={() => this.onClick(task.id)}>
-                <div className={user_icons[0] + " icon"}></div>
+                <div className={user_icons[0] + " icon " + task_state_color[task.state]}></div>
                 {task.title}
               </div>
           })
