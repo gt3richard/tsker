@@ -83,7 +83,7 @@ class TaskStore {
 
     addTask(title) {
         this.tasks.push(
-            { id: uuidv1(), title: title, state: "" }
+            { id: uuidv1(), title: title, description: "Click to enter description here", state: "" }
         )
     }
 

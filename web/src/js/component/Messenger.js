@@ -17,27 +17,15 @@ export default class Messenger extends Component {
     super(props)
 
     this.state = {
-      message: '',
-      edit: ''
+      message: ''
     }
 
     this.onTaskStateChange = this.onTaskStateChange.bind(this)
-    this.onChange = this.onChange.bind(this)
     this.onMessageEnter = this.onMessageEnter.bind(this)
-    this.onEditToggle = this.onEditToggle.bind(this)
-    this.onClose = this.onClose.bind(this)
   }
 
   onTaskStateChange = (state) => {
     this.props.store.updateTaskState(state)
-  }
-
-  onChange = (event, action) => {
-    action(event.target.value).bind(this)
-  }
-
-  onClose = () => {
-    this.setState({edit: ''})
   }
 
   onMessageEnter = (event) => {
@@ -47,10 +35,6 @@ export default class Messenger extends Component {
     } else {
       this.setState({message: event.target.value})
     }
-  }
-
-  onEditToggle = (event) => {
-    this.setState({edit: event.target.id})
   }
 
   render() {
@@ -80,26 +64,20 @@ export default class Messenger extends Component {
       ]
     })
 
-    const titleView = [<div className="title" id="title" key="titleView" onClick={this.onEditToggle}>{this.props.store.messageTitle}</div>]
+    const titleView = [<div className="title" id="title" key="titleView">{this.props.store.messageTitle}</div>]
     const titleEdit = [
       <div className="titleEdit" id="title" key="titleEdit">
         <div className="input-group input-group-lg mb-3">
           <input type="text" className="form-control titleEdit" id="title" value={this.props.store.messageTitle} onChange={(e) => this.props.store.updateTitle(e.target.value)} aria-describedby="inputGroup-sizing-default" />
-          <div className="btn-group" role="group" >
-            <button type="button" className="btn btn-primary" onClick={this.onClose}>X</button>
-          </div>
         </div>
       </div>
     ]
 
-    const descriptionView = [<div className="description" id="description" key="descriptionView" onClick={this.onEditToggle}>{this.props.store.messageDescription}</div>]
+    const descriptionView = [<div className="description" id="description" key="descriptionView">{this.props.store.messageDescription}</div>]
     const descriptionEdit = [
       <div className="descriptionEdit" id="description"  key="descriptionEdit">
         <div className="input-group mb-3">
           <textarea className="form-control descriptionEdit" id="description" value={this.props.store.messageDescription} onChange={(e) => this.props.store.updateDescription(e.target.value)} aria-label="With textarea"></textarea>
-          <div className="btn-group" role="group">
-            <button type="button" className="btn btn-primary" onClick={this.onClose}>X</button>
-          </div>
         </div>
       </div>
     ]
@@ -115,6 +93,7 @@ export default class Messenger extends Component {
       </div>
     ]
 
+    const deleteTask = [<button type="button" className="btn btn-danger btn-lg btn-block deleteButton">Delete Task</button>]
     const messageInput = [
       <div className="input-group mb-3" key="messageInput">
         <input type="text" className="form-control messageBox" placeholder="Enter message ..." value={this.state.message} onChange={this.onMessageEnter} onKeyDown={this.onMessageEnter} aria-describedby="inputGroup-sizing-default" />
@@ -125,9 +104,10 @@ export default class Messenger extends Component {
       <div className="col messenger">
           <div className="row">
             <div className="col">
-                {(this.state.edit === 'title' && titleEdit) || titleView}
-                {(this.state.edit === 'description' && descriptionEdit) || descriptionView}
-                {this.props.store.messageTitle && taskState}
+                {this.props.store.edit && deleteTask}
+                {(this.props.store.edit && titleEdit) || titleView}
+                {(this.props.store.edit && descriptionEdit) || descriptionView}
+                {(this.props.store.edit) || (this.props.store.messageTitle && taskState)}
                 <div className="bar"></div>
             </div>
           </div>
@@ -138,7 +118,7 @@ export default class Messenger extends Component {
           </div>
           <div className="row">
             <div className="col">
-            {this.props.store.messageTitle && messageInput}
+            {(this.props.store.edit) || (this.props.store.messageTitle && messageInput)}
             </div>
           </div>
       </div>

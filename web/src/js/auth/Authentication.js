@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import {observer} from "mobx-react"
 
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
@@ -67,10 +68,11 @@ export default class Authentication extends PureComponent {
   }
 
   Navigation = () => {
+    const editButton = <button className="btn btn-outline-dark my-2" onClick={this.handleEdit} type="button">Edit</button>
     return (
       <nav className="navbar navbar-expand-lg navbar-light">
             <a className="navbar-brand" href="/">Tskley</a>
-            {/* <button className="btn btn-outline-dark my-2" onClick={this.handleEdit} type="button">Edit</button> */}
+            {this.props.store.activeTaskId && editButton}
             <input
               hidden = {this.state.status !== 'Authenticated'}
               type="button" 
@@ -145,10 +147,12 @@ export default class Authentication extends PureComponent {
         return <div />;
     }
   };
+
   switchComponent = status => {
     this.props.store.isAuthenticated = (status === 'Authenticated')
     this.setState({ status, 'errorMessage': '' });
   };
+  
   render() {
     if(this.state.status === 'Authenticated' || this.state.status === '') {
       return (
@@ -171,3 +175,5 @@ export default class Authentication extends PureComponent {
     }
   }
 }
+
+Authentication = observer(Authentication)

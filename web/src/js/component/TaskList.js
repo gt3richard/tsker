@@ -19,11 +19,12 @@ export default class TaskList extends Component {
     super(props)
 
     this.state = {
-      task: '',
-      edit: false
+      task: ''
     }
 
     this.onClick = this.onClick.bind(this)
+    this.onSearch = this.onSearch.bind(this)
+    this.onAddEnter = this.onAddEnter.bind(this)
   }
 
   onClick = (id) => {
@@ -34,17 +35,10 @@ export default class TaskList extends Component {
     this.props.store.filterTasks(event.target.value)
   }
 
-  onEditToggle = (state) => {
-    this.setState({edit: state})
-    if(!state) {
-      this.setState({task: ''})
-    }
-  }
-
   onAddEnter = (event) => {
     if (event.key === 'Enter' && event.target.value.length > 0) {
       this.props.store.addTask(event.target.value)
-      this.onEditToggle(false)
+      this.setState({task: ''})
     } else {
       this.setState({task: event.target.value})
     }
@@ -58,16 +52,10 @@ export default class TaskList extends Component {
               </div>
           })
 
-    const addFunction = [
-      <div className="taskAdd" onClick={() => this.onEditToggle(true)} key="taskAdd">
-        <div className="fas fa-plus icon"></div>Add new task ...
-      </div>
-    ]
-
     const addBox = [
-      <div className="taskAddForm" onBlur={() => this.onEditToggle(false)} key="taskAdd">
+      <div className="taskAddForm" key="taskAdd">
         <div className="input-group mb-3">
-          <input type="text" className="form-control addBox" placeholder="Enter task name ..." value={this.state.task} onChange={this.onAddEnter} onKeyDown={this.onAddEnter}  aria-describedby="inputGroup-sizing-default" />
+          <input type="text" className="form-control addBox" placeholder="Add a new task ..." value={this.state.task} onChange={this.onAddEnter} onKeyDown={this.onAddEnter}  aria-describedby="inputGroup-sizing-default" />
         </div>
       </div>
     ]
@@ -80,7 +68,7 @@ export default class TaskList extends Component {
               </div>
             <div className="taskLabel">Ordered by priority</div>
             {taskList}
-            {(this.state.edit && addBox) || addFunction}
+            {addBox}
         </div>
         )
   }
