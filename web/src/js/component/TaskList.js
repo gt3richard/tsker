@@ -59,13 +59,13 @@ export default class TaskList extends Component {
           })
 
     const addFunction = [
-      <div className="taskAdd" onClick={() => this.onEditToggle(true)}>
+      <div className="taskAdd" onClick={() => this.onEditToggle(true)} key="taskAdd">
         <div className="fas fa-plus icon"></div>Add new task ...
       </div>
     ]
 
     const addBox = [
-      <div className="taskAdd" onBlur={() => this.onEditToggle(false)}>
+      <div className="taskAddForm" onBlur={() => this.onEditToggle(false)} key="taskAdd">
         <div className="input-group mb-3">
           <input type="text" className="form-control addBox" placeholder="Enter task name ..." value={this.state.task} onChange={this.onAddEnter} onKeyDown={this.onAddEnter}  aria-describedby="inputGroup-sizing-default" />
         </div>
@@ -80,7 +80,7 @@ export default class TaskList extends Component {
               </div>
             <div className="taskLabel">Ordered by priority</div>
             {taskList}
-            {this.state.edit && addBox || addFunction}
+            {(this.state.edit && addBox) || addFunction}
         </div>
         )
   }

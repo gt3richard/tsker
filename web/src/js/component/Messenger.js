@@ -17,16 +17,27 @@ export default class Messenger extends Component {
     super(props)
 
     this.state = {
-      message: ''
+      message: '',
+      edit: ''
     }
 
     this.onTaskStateChange = this.onTaskStateChange.bind(this)
+    this.onChange = this.onChange.bind(this)
     this.onMessageEnter = this.onMessageEnter.bind(this)
+    this.onEditToggle = this.onEditToggle.bind(this)
+    this.onClose = this.onClose.bind(this)
   }
 
   onTaskStateChange = (state) => {
-    console.log(state)
     this.props.store.updateTaskState(state)
+  }
+
+  onChange = (event, action) => {
+    action(event.target.value).bind(this)
+  }
+
+  onClose = () => {
+    this.setState({edit: ''})
   }
 
   onMessageEnter = (event) => {
@@ -38,6 +49,10 @@ export default class Messenger extends Component {
     }
   }
 
+  onEditToggle = (event) => {
+    this.setState({edit: event.target.id})
+  }
+
   render() {
     var messageMap = {}
     this.props.store.messages.map((message) => {
@@ -47,17 +62,16 @@ export default class Messenger extends Component {
       } else {
         messageMap[date].push(message)
       }
+      return undefined
     })
 
     const messageList = Object.keys(messageMap).map((key, idx) => {
-
       const msgs = messageMap[key].map((msg, idx) => {
         return <div className="text" key={idx}>
           <div className={user_icons[0] + " " + user_icon_color[msg.user_id] + " icon"}></div>
           {msg.text}
           </div>
       })
-
       return [
         <div className="message" key={idx}>
           <div className="date">{key}</div>
@@ -65,6 +79,30 @@ export default class Messenger extends Component {
         </div>
       ]
     })
+
+    const titleView = [<div className="title" id="title" key="titleView" onClick={this.onEditToggle}>{this.props.store.messageTitle}</div>]
+    const titleEdit = [
+      <div className="titleEdit" id="title" key="titleEdit">
+        <div className="input-group input-group-lg mb-3">
+          <input type="text" className="form-control titleEdit" id="title" value={this.props.store.messageTitle} onChange={(e) => this.props.store.updateTitle(e.target.value)} aria-describedby="inputGroup-sizing-default" />
+          <div className="btn-group" role="group" >
+            <button type="button" className="btn btn-primary" onClick={this.onClose}>X</button>
+          </div>
+        </div>
+      </div>
+    ]
+
+    const descriptionView = [<div className="description" id="description" key="descriptionView" onClick={this.onEditToggle}>{this.props.store.messageDescription}</div>]
+    const descriptionEdit = [
+      <div className="descriptionEdit" id="description"  key="descriptionEdit">
+        <div className="input-group mb-3">
+          <textarea className="form-control descriptionEdit" id="description" value={this.props.store.messageDescription} onChange={(e) => this.props.store.updateDescription(e.target.value)} aria-label="With textarea"></textarea>
+          <div className="btn-group" role="group">
+            <button type="button" className="btn btn-primary" onClick={this.onClose}>X</button>
+          </div>
+        </div>
+      </div>
+    ]
 
     const taskState = [
       <div className="btn-group btn-group-toggle" data-toggle="buttons" key="taskSate">
@@ -87,8 +125,8 @@ export default class Messenger extends Component {
       <div className="col messenger">
           <div className="row">
             <div className="col">
-                <div className="title">{this.props.store.messageTitle}</div>
-                <div className="description">{this.props.store.messageDescription}</div>
+                {(this.state.edit === 'title' && titleEdit) || titleView}
+                {(this.state.edit === 'description' && descriptionEdit) || descriptionView}
                 {this.props.store.messageTitle && taskState}
                 <div className="bar"></div>
             </div>

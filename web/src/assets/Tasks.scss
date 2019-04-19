@@ -46,6 +46,16 @@
         padding: 5px;
     }
 
+    .taskAddForm {
+
+        margin-top: 5px;
+
+        input {
+            background-color: inherit;
+            color: inherit;
+        }
+    }
+
     .icon {
         padding: 5px;
     }
@@ -86,10 +96,6 @@
         .icon {
             padding: 5px;
         }
-    }
-
-    .messageList {
-        // height: 80vh;
     }
 
     .messageBox {

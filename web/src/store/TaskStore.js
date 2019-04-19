@@ -73,6 +73,14 @@ class TaskStore {
         })
     }
 
+    updateTitle(title) {
+        this.messageTitle = title
+    }
+
+    updateDescription(description) {
+        this.messageDescription = description
+    }
+
     addTask(title) {
         this.tasks.push(
             { id: uuidv1(), title: title, state: "" }
@@ -100,6 +108,8 @@ decorate(TaskStore, {
     getUser: action,
     updateTaskState: action,
     addMessage: action,
+    updateTitle: action,
+    updateDescription: action,
     addTask: action
 })
 
