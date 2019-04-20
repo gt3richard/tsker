@@ -59,9 +59,17 @@ class TaskStore {
         }
     }
 
+    clearTask() {
+        this.activeTaskId = ''
+        this.messageTitle = ''
+        this.messageDescription = ''
+        this.messages = []
+    }
+
     updateTaskState(state) {
         this.tasks.filter(f => f.id === this.activeTaskId)[0].state = state
         this.addMessage("Task is "+ state)
+        this.filteredTasks = this.tasks
     }
 
     addMessage(message) {
@@ -74,18 +82,38 @@ class TaskStore {
     }
 
     updateTitle(title) {
+        this.tasks.map(m => {
+            if(m.id === this.activeTaskId) {
+                m.title = title
+            }
+        })
         this.messageTitle = title
+        this.filterTasks = this.tasks
     }
 
     updateDescription(description) {
+        this.tasks.map(m => {
+            if(m.id === this.activeTaskId) {
+                m.description = description
+            }
+        })
         this.messageDescription = description
+        this.filterTasks = this.tasks
     }
 
     addTask(title) {
         this.tasks.push(
-            { id: uuidv1(), title: title, description: "Click to enter description here", state: "" }
+            { id: uuidv1(), title: title, state: "" }
         )
+        this.filteredTasks = this.tasks
     }
+
+    deleteTask() {
+        this.tasks = this.tasks.filter(f => f.id !== this.activeTaskId)
+        this.filteredTasks = this.tasks
+        this.clearTask()
+        this.edit = false
+    } 
 
     filterTasks(search) {
         this.filteredTasks = this.tasks.filter(f => f.title.toLowerCase().includes(search.toLowerCase()))
@@ -110,7 +138,8 @@ decorate(TaskStore, {
     addMessage: action,
     updateTitle: action,
     updateDescription: action,
-    addTask: action
+    addTask: action,
+    deleteTask: action
 })
 
 const store = new TaskStore();

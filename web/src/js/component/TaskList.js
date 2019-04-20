@@ -55,7 +55,8 @@ export default class TaskList extends Component {
     const addBox = [
       <div className="taskAddForm" key="taskAdd">
         <div className="input-group mb-3">
-          <input type="text" className="form-control addBox" placeholder="Add a new task ..." value={this.state.task} onChange={this.onAddEnter} onKeyDown={this.onAddEnter}  aria-describedby="inputGroup-sizing-default" />
+          <i className="fas fa-plus add-icon"></i>
+          <input type="text" className="form-control add-input" placeholder="Add a new task ..." value={this.state.task} onChange={this.onAddEnter} onKeyDown={this.onAddEnter}  aria-describedby="inputGroup-sizing-default" />
         </div>
       </div>
     ]

@@ -22,6 +22,8 @@ export default class Messenger extends Component {
 
     this.onTaskStateChange = this.onTaskStateChange.bind(this)
     this.onMessageEnter = this.onMessageEnter.bind(this)
+    this.onDelete = this.onDelete.bind(this)
+
   }
 
   onTaskStateChange = (state) => {
@@ -35,6 +37,10 @@ export default class Messenger extends Component {
     } else {
       this.setState({message: event.target.value})
     }
+  }
+
+  onDelete = (event) => {
+    this.props.store.deleteTask()
   }
 
   render() {
@@ -77,7 +83,7 @@ export default class Messenger extends Component {
     const descriptionEdit = [
       <div className="descriptionEdit" id="description"  key="descriptionEdit">
         <div className="input-group mb-3">
-          <textarea className="form-control descriptionEdit" id="description" value={this.props.store.messageDescription} onChange={(e) => this.props.store.updateDescription(e.target.value)} aria-label="With textarea"></textarea>
+          <textarea className="form-control descriptionEdit" id="description" placeholder="Enter description ..." value={this.props.store.messageDescription} onChange={(e) => this.props.store.updateDescription(e.target.value)} aria-label="With textarea"></textarea>
         </div>
       </div>
     ]
@@ -93,7 +99,7 @@ export default class Messenger extends Component {
       </div>
     ]
 
-    const deleteTask = [<button type="button" className="btn btn-danger btn-lg btn-block deleteButton">Delete Task</button>]
+    const deleteTask = [<button type="button" className="btn btn-danger btn-lg btn-block deleteButton" onClick={this.onDelete} key="deleteButton">Delete Task</button>]
     const messageInput = [
       <div className="input-group mb-3" key="messageInput">
         <input type="text" className="form-control messageBox" placeholder="Enter message ..." value={this.state.message} onChange={this.onMessageEnter} onKeyDown={this.onMessageEnter} aria-describedby="inputGroup-sizing-default" />
