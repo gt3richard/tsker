@@ -9,6 +9,7 @@ class TaskStore {
     userId = ""
     accessToken = ""
     edit = false
+    teamEdit = false
     
     userData = {}
     tasks = []
@@ -118,6 +119,10 @@ class TaskStore {
     filterTasks(search) {
         this.filteredTasks = this.tasks.filter(f => f.title.toLowerCase().includes(search.toLowerCase()))
     }
+
+    joinTeam(code) {
+
+    }
 }
 
 decorate(TaskStore, {
@@ -125,6 +130,7 @@ decorate(TaskStore, {
     userId: observable,
     accessToken: observable,
     edit: observable,
+    teamEdit: observable,
     tasks: observable,
     filteredTasks: observable,
     messages: observable,
@@ -139,7 +145,8 @@ decorate(TaskStore, {
     updateTitle: action,
     updateDescription: action,
     addTask: action,
-    deleteTask: action
+    deleteTask: action,
+    joinTeam: action
 })
 
 const store = new TaskStore();

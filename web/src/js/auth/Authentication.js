@@ -67,11 +67,17 @@ export default class Authentication extends PureComponent {
     this.props.store.edit = !this.props.store.edit
   }
 
+  handleTeam = event => {
+    this.props.store.teamEdit = true
+  }
+
   Navigation = () => {
     const editButton = <button className="btn btn-outline-dark my-2" onClick={this.handleEdit} type="button">Edit</button>
+    const teamButton = <button className="btn btn-outline-dark my-2" onClick={this.handleTeam} type="button">Team</button>
     return (
       <nav className="navbar navbar-expand-lg navbar-light">
             <a className="navbar-brand" href="/">Tskley</a>
+            {this.state.status === 'Authenticated' && teamButton}
             {this.props.store.activeTaskId && editButton}
             <input
               hidden = {this.state.status !== 'Authenticated'}
