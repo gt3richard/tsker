@@ -1,5 +1,5 @@
 import {decorate, observable, action} from "mobx"
-import { getUser, putUser } from '../service/Api'
+import { getUser, putUser, getTask, putTask } from '../service/Api'
 const uuidv1 = require('uuid/v1');
 const moment = require('moment');
 
@@ -43,24 +43,16 @@ class TaskStore {
         this.taskDescription = task.description
         this.taskState       = task.state
 
-        if(id === '1') {
-            this.messages = [
-                { user_id: '1', date: '2/4/2019 10:00:00', text: 'Can you give me a status update?' },
-                { user_id: 'dfa3a239-f8c4-47ec-bab9-98676bb8b806', date: '2/4/2019 11:00:00', text: 'I\'ve filled out the form but am waiting to get it authorized.' },
-                { user_id: 'dfa3a239-f8c4-47ec-bab9-98676bb8b806', date: '2/6/2019 11:00:00', text: 'Task is Blocked' },
-                { user_id: 'dfa3a239-f8c4-47ec-bab9-98676bb8b806', date: '2/6/2019 12:00:00', text: 'The person is out on vacation so I can get it done next week.' },
-                { user_id: '1', date: '2/6/2019 13:00:00', text: 'Send it over to me and I can authorize it.' },
-                { user_id: 'dfa3a239-f8c4-47ec-bab9-98676bb8b806', date: '2/7/2019 11:00:00', text: 'Task is Completed' }
-              ]
-        } else {
-            this.messages = [
-                { user_id: '1', date: '2/4/2019 10:00:00', text: 'Hey, Can you give me a status update?' },
-                { user_id: 'dfa3a239-f8c4-47ec-bab9-98676bb8b806', date: '2/4/2019 11:00:00', text: 'I\'ve filled out the form but am waiting to get it authorized.' },
-                { user_id: 'dfa3a239-f8c4-47ec-bab9-98676bb8b806', date: '2/6/2019 11:00:00', text: 'Task is Blocked' },
-                { user_id: 'dfa3a239-f8c4-47ec-bab9-98676bb8b806', date: '2/6/2019 12:00:00', text: 'The person is out on vacation so I can get it done next week.' },
-                { user_id: '1', date: '2/6/2019 13:00:00', text: 'Send it over to me and I can authorize it.' },
-                { user_id: 'dfa3a239-f8c4-47ec-bab9-98676bb8b806', date: '2/7/2019 11:00:00', text: 'Task is Completed' }
-              ]
+        const callback = (result) => {
+            if(result !== undefined) {
+                this.messages = result.messages
+            } else {
+                this.messages = []
+            }
+        }
+
+        if(this.taskId && this.accessToken) {
+            getTask(this.taskId, this.accessToken, callback)
         }
     }
 
@@ -100,6 +92,9 @@ class TaskStore {
             date: utcDate,
             text: message
         })
+
+        const callback = (result) => {}
+        putTask(this.taskId, this.messages, this.accessToken, callback)
     }
 
     updateTitle(title) {
