@@ -44,11 +44,7 @@ class TaskStore {
         this.taskState       = task.state
 
         const callback = (result) => {
-            if(result !== undefined) {
-                this.messages = result.messages
-            } else {
-                this.messages = []
-            }
+            this.messages = result.messages
         }
 
         if(this.taskId && this.accessToken) {
