@@ -3,8 +3,8 @@ import axios from 'axios'
 
 const url = ''
 
-export function getTasks(userId, accessToken, callback) {
-    axios.get(`${url}/task?Id=${userId}`, {
+export function getUser(userId, accessToken, callback) {
+    axios.get(`${url}/user?id=${userId}`, {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -22,18 +22,18 @@ export function getTasks(userId, accessToken, callback) {
     })
 }
 
-export function putTasks(userId, tasks, stateMode, resetMode, accessToken, callback) {
+export function putUser(userId, team, role, tasks, accessToken, callback) {
     const body = { 
         Item: {
             'user_id': userId,
-            'stateMode': stateMode,
-            'resetMode': resetMode,
+            'team': team,
+            'role': role,
             'tasks': toJS(tasks)
         },
-        TableName: 'krontsk'
+        TableName: 'tskley'
     }
 
-    axios.put(`${url}/task`, body, {
+    axios.put(`${url}/user`, body, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',

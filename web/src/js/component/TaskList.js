@@ -22,8 +22,8 @@ export default class TaskList extends Component {
       task: ''
     }
 
-    this.onClick = this.onClick.bind(this)
-    this.onSearch = this.onSearch.bind(this)
+    this.onClick    = this.onClick.bind(this)
+    this.onSearch   = this.onSearch.bind(this)
     this.onAddEnter = this.onAddEnter.bind(this)
   }
 
@@ -63,7 +63,7 @@ export default class TaskList extends Component {
 
     return(
         <div className="col tasklist">
-            <div className="teamName">{this.props.store.userData['team']}</div>
+            <div className="teamName">{this.props.store.userTeam}</div>
               <div className="input-group mb-3">
                 <input type="text" className="form-control searchBox" placeholder="Search ..." onChange={this.onSearch} aria-describedby="inputGroup-sizing-default" />
               </div>

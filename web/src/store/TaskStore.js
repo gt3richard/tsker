@@ -1,5 +1,5 @@
 import {decorate, observable, action} from "mobx"
-
+import { getUser, putUser } from '../service/Api'
 const uuidv1 = require('uuid/v1');
 const moment = require('moment');
 
@@ -11,37 +11,34 @@ class TaskStore {
     edit = false
     teamEdit = false
     
-    userData = {}
+    userTeam = ''
     userRole = 'user'
     tasks = []
     filteredTasks = []
     messages = []
-    activeTaskId = ''
+    taskId = ''
     taskState = ''
-    messageTitle = ''
-    messageDescription = ''
+    taskTitle = ''
+    taskDescription = ''
 
     getUser() {
-        this.userData = {
-            team: 'Team Blue',
-            role: 'manager'
-        }
-    }
+        const callback = (result) => {
+            this.userTeam = result.team
+            this.userRole = result.role
+            this.tasks    = result.tasks
 
-    getTasks() {
-        this.tasks = [
-            { id: '1', title: 'Submit report to team', description: "You need to submit the report to the team.", state: "" }, 
-            { id: '2', title: 'Fill out form', description: "You need to fill out the authorization form and send it over to the team by next week.", state: "" }
-          ]
-        this.filteredTasks = this.tasks
+            this.filteredTasks = this.tasks
+        }
+
+        getUser(this.userId, this.accessToken, callback)
     }
 
     getTask(id) {
         const task = this.tasks.filter(f => f.id === id)[0]
-        this.activeTaskId = id
-        this.messageTitle = task.title
-        this.messageDescription = task.description
-        this.taskState = task.state
+        this.taskId          = id
+        this.taskTitle       = task.title
+        this.taskDescription = task.description
+        this.taskState       = task.state
 
         if(id === '1') {
             this.messages = [
@@ -65,15 +62,15 @@ class TaskStore {
     }
 
     clearTask() {
-        this.activeTaskId = ''
+        this.taskId = ''
         this.taskState = ''
-        this.messageTitle = ''
-        this.messageDescription = ''
+        this.taskTitle = ''
+        this.taskDescription = ''
         this.messages = []
     }
 
     updateTaskState(state) {
-        this.tasks.filter(f => f.id === this.activeTaskId)[0].state = state
+        this.tasks.filter(f => f.id === this.taskId)[0].state = state
         this.addMessage("Task is "+ state)
         this.taskState = state
         this.filteredTasks = this.tasks
@@ -90,33 +87,33 @@ class TaskStore {
 
     updateTitle(title) {
         this.tasks.map(m => {
-            if(m.id === this.activeTaskId) {
+            if(m.id === this.taskId) {
                 m.title = title
             }
         })
-        this.messageTitle = title
+        this.taskTitle = title
         this.filterTasks = this.tasks
     }
 
     updateDescription(description) {
         this.tasks.map(m => {
-            if(m.id === this.activeTaskId) {
+            if(m.id === this.taskId) {
                 m.description = description
             }
         })
-        this.messageDescription = description
+        this.taskDescription = description
         this.filterTasks = this.tasks
     }
 
     addTask(title) {
         this.tasks.push(
-            { id: uuidv1(), title: title, state: "" }
+            { id: uuidv1(), title: title, state: "not_done" }
         )
         this.filteredTasks = this.tasks
     }
 
     deleteTask() {
-        this.tasks = this.tasks.filter(f => f.id !== this.activeTaskId)
+        this.tasks = this.tasks.filter(f => f.id !== this.taskId)
         this.filteredTasks = this.tasks
         this.clearTask()
         this.edit = false
@@ -137,14 +134,15 @@ decorate(TaskStore, {
     accessToken: observable,
     edit: observable,
     teamEdit: observable,
-    userData: observable,
+    taskId: observable,
+    userTeam: observable,
+    userRole: observable,
     tasks: observable,
     filteredTasks: observable,
     messages: observable,
-    activeTaskId: observable,
     taskState: observable,
-    messageTitle: observable,
-    messageDescription: observable,
+    taskTitle: observable,
+    taskDescription: observable,
     getTasks: action,
     getTask: action,
     getUser: action,
