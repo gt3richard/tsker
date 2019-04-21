@@ -90,10 +90,10 @@ export default class Messenger extends Component {
 
     const taskState = [
       <div className="btn-group btn-group-toggle" data-toggle="buttons" key="taskSate">
-        <label className="btn btn-secondary" onClick={() => this.onTaskStateChange("completed")}>
+        <label className="btn btn-secondary btn-state completed" onClick={() => this.onTaskStateChange("completed")}>
           <input type="radio" name="options" id="completed"/> Completed
         </label>
-        <label className="btn btn-secondary" onClick={() => this.onTaskStateChange("blocked")}>
+        <label className="btn btn-secondary btn-state blocked" onClick={() => this.onTaskStateChange("blocked")}>
           <input type="radio" name="options" id="blocked" /> Blocked
         </label>
       </div>

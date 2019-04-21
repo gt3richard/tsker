@@ -12,6 +12,7 @@ class TaskStore {
     teamEdit = false
     
     userData = {}
+    userRole = 'user'
     tasks = []
     filteredTasks = []
     messages = []
@@ -22,7 +23,7 @@ class TaskStore {
     getUser() {
         this.userData = {
             team: 'Team Blue',
-            manager: '1'
+            role: 'manager'
         }
     }
 
@@ -131,6 +132,7 @@ decorate(TaskStore, {
     accessToken: observable,
     edit: observable,
     teamEdit: observable,
+    userData: observable,
     tasks: observable,
     filteredTasks: observable,
     messages: observable,

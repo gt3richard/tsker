@@ -57,6 +57,10 @@
             font-size: .6em;
         }
 
+        input::placeholder {
+            color: lightgray;
+        }
+
         .add-icon {
             padding: 6px;
             font-size: .9em;
@@ -83,6 +87,29 @@
     .description {
         margin-left: 20px;
         font-size: .7em;
+    }
+
+    .btn-group-toggle {
+        text-align: center;
+        display: block;
+        margin-top: 10px;
+    }
+
+    .btn-state {
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-top: 10px;
+        border-radius: 5px !important;        
+    }
+
+    .btn-group-toggle {
+        .completed.active {
+            background: green !important;
+        }
+
+        .blocked.active {
+            background-color:red !important;
+        }
     }
 
     .bar {

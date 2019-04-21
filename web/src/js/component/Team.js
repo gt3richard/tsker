@@ -22,7 +22,7 @@ export default class Team extends Component {
   }
 
   onRoleChange = (role) => {
-
+    this.props.store.userData['role'] = role
   } 
 
   render() {
@@ -43,10 +43,10 @@ export default class Team extends Component {
         <h1 className="display-4">{this.props.store.userData['team']}</h1>
         <hr className="my-4" />
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
-          <label className="btn btn-secondary" onClick={() => this.onRoleChange("user")}>
+          <label className={"btn btn-secondary" + (this.props.store.userData['role'] === 'user' && ' active')} onClick={() => this.onRoleChange("user")}>
             <input type="radio" name="options" id="user"/> User
           </label>
-          <label className="btn btn-secondary" onClick={() => this.onRoleChange("manager")}>
+          <label className={"btn btn-secondary" + (this.props.store.userData['role'] === 'manager' && ' active') } onClick={() => this.onRoleChange("manager")}>
             <input type="radio" name="options" id="manager" /> Manager
           </label>
         </div>
@@ -55,7 +55,7 @@ export default class Team extends Component {
 
     return (
         <div className="team">
-            {join}
+            {edit}
         </div>
     )
   }
