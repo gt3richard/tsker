@@ -72,18 +72,18 @@ export default class Messenger extends Component {
 
     const titleView = [<div className="title" id="title" key="titleView">{this.props.store.messageTitle}</div>]
     const titleEdit = [
-      <div className="titleEdit" id="title" key="titleEdit">
+      <div className="title-edit" id="title" key="titleEdit">
         <div className="input-group input-group-lg mb-3">
-          <input type="text" className="form-control titleEdit" id="title" value={this.props.store.messageTitle} onChange={(e) => this.props.store.updateTitle(e.target.value)} aria-describedby="inputGroup-sizing-default" />
+          <input type="text" className="form-control" id="title" value={this.props.store.messageTitle} onChange={(e) => this.props.store.updateTitle(e.target.value)} aria-describedby="inputGroup-sizing-default" />
         </div>
       </div>
     ]
 
     const descriptionView = [<div className="description" id="description" key="descriptionView">{this.props.store.messageDescription}</div>]
     const descriptionEdit = [
-      <div className="descriptionEdit" id="description"  key="descriptionEdit">
+      <div className="description-edit" id="description"  key="descriptionEdit">
         <div className="input-group mb-3">
-          <textarea className="form-control descriptionEdit" id="description" placeholder="Enter description ..." value={this.props.store.messageDescription} onChange={(e) => this.props.store.updateDescription(e.target.value)} aria-label="With textarea"></textarea>
+          <textarea className="form-control" id="description" placeholder="Enter description ..." value={this.props.store.messageDescription} onChange={(e) => this.props.store.updateDescription(e.target.value)} aria-label="With textarea"></textarea>
         </div>
       </div>
     ]
@@ -99,7 +99,7 @@ export default class Messenger extends Component {
       </div>
     ]
 
-    const deleteTask = [<button type="button" className="btn btn-danger btn-lg btn-block deleteButton" onClick={this.onDelete} key="deleteButton">Delete Task</button>]
+    const deleteTask = [<button type="button" className="btn btn-danger btn-lg btn-block deleteButton" data-toggle="modal" data-target="#deleteModal" key="deleteButton">Delete Task</button>]
     const messageInput = [
       <div className="input-group mb-3" key="messageInput">
         <input type="text" className="form-control messageBox" placeholder="Enter message ..." value={this.state.message} onChange={this.onMessageEnter} onKeyDown={this.onMessageEnter} aria-describedby="inputGroup-sizing-default" />
@@ -125,6 +125,25 @@ export default class Messenger extends Component {
           <div className="row">
             <div className="col">
             {(this.props.store.edit) || (this.props.store.messageTitle && messageInput)}
+            </div>
+          </div>
+          <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to delete this task?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger" onClick={this.onDelete} data-dismiss="modal">Delete</button>
+                </div>
+              </div>
             </div>
           </div>
       </div>

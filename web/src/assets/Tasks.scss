@@ -84,6 +84,10 @@
         font-weight: 700;
     }
 
+    .title-edit {
+        margin-top: 20px;
+    }
+    
     .description {
         margin-left: 20px;
         font-size: .7em;
@@ -142,6 +146,18 @@
         position: fixed;
         bottom: 0px;
         width: 42vw;
+    }
+
+    .modal {
+
+        .modal-title {
+            font-size: .8em;
+        }
+
+        .modal-body {
+            font-size: .6em;
+        }
+
     }
 }
 
