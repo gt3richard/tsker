@@ -77,7 +77,7 @@ export default class Authentication extends PureComponent {
       <nav className="navbar navbar-expand-lg navbar-light">
             <a className="navbar-brand" href="/">Tskley</a>
             {this.state.status === 'Authenticated' && teamButton}
-            {this.props.store.activeTaskId && editButton}
+            {this.props.store.taskId && editButton}
             <input
               hidden = {this.state.status !== 'Authenticated'}
               type="button" 

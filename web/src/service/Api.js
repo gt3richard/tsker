@@ -1,7 +1,7 @@
 import { toJS } from "mobx"
 import axios from 'axios'
 
-const url = ''
+const url = 'https://ns0nllklq0.execute-api.us-west-2.amazonaws.com/dev'
 
 export function getUser(userId, accessToken, callback) {
     axios.get(`${url}/user?id=${userId}`, {

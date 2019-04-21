@@ -70,10 +70,24 @@ class TaskStore {
     }
 
     updateTaskState(state) {
-        this.tasks.filter(f => f.id === this.taskId)[0].state = state
-        this.addMessage("Task is "+ state)
+        const taskMap = {
+            completed: 'completed',
+            blocked: 'blocked',
+            not_done: 'not completed'
+        }
+
+        const task = this.tasks.filter(f => f.id === this.taskId)[0]
+        if(task.state === state) {
+            state = 'not_done'
+        }
+        task.state = state
+
+        this.addMessage("Task is "+ taskMap[state])
         this.taskState = state
         this.filteredTasks = this.tasks
+
+        const callback = (result) => {}
+        putUser(this.userId, this.userTeam, this.userRole, this.tasks, this.accessToken, callback)
     }
 
     addMessage(message) {
@@ -93,6 +107,9 @@ class TaskStore {
         })
         this.taskTitle = title
         this.filterTasks = this.tasks
+
+        const callback = (result) => {}
+        putUser(this.userId, this.userTeam, this.userRole, this.tasks, this.accessToken, callback)
     }
 
     updateDescription(description) {
@@ -103,6 +120,9 @@ class TaskStore {
         })
         this.taskDescription = description
         this.filterTasks = this.tasks
+
+        const callback = (result) => {}
+        putUser(this.userId, this.userTeam, this.userRole, this.tasks, this.accessToken, callback)
     }
 
     addTask(title) {
@@ -110,6 +130,9 @@ class TaskStore {
             { id: uuidv1(), title: title, state: "not_done" }
         )
         this.filteredTasks = this.tasks
+
+        const callback = (result) => {}
+        putUser(this.userId, this.userTeam, this.userRole, this.tasks, this.accessToken, callback)
     }
 
     deleteTask() {
@@ -117,6 +140,9 @@ class TaskStore {
         this.filteredTasks = this.tasks
         this.clearTask()
         this.edit = false
+
+        const callback = (result) => {}
+        putUser(this.userId, this.userTeam, this.userRole, this.tasks, this.accessToken, callback)
     } 
 
     filterTasks(search) {
