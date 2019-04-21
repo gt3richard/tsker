@@ -25,6 +25,10 @@ export default class Team extends Component {
     this.props.store.userRole = role
   } 
 
+  onColorSelection = (event) => {
+    this.props.store.userColor = event.target.id
+  }
+
   render() {
     const join = [
       <div className="team-join" key="join">
@@ -49,6 +53,18 @@ export default class Team extends Component {
           <label className={"btn btn-secondary" + (this.props.store.userRole === 'manager' && ' active') } onClick={() => this.onRoleChange("manager")}>
             <input type="radio" name="options" id="manager" /> Manager
           </label>
+        </div>
+        <div className="color">
+          <div className="row">
+            <div className={"col blue-bg " + (this.props.store.userColor == 'blue' && "active")} onClick={this.onColorSelection} id="blue"></div>
+            <div className={"col green-bg " + (this.props.store.userColor == 'green' && "active")} onClick={this.onColorSelection} id="green"></div>
+            <div className={"col red-bg " + (this.props.store.userColor == 'red' && "active")} onClick={this.onColorSelection} id="red"></div>
+            <div className={"col orange-bg " + (this.props.store.userColor == 'orange' && "active")} onClick={this.onColorSelection} id="orange"></div>
+            <div className={"col purple-bg " + (this.props.store.userColor == 'purple' && "active")} onClick={this.onColorSelection} id="purple"></div>
+          </div>
+        </div>
+        <div className="btn-done">
+          <button type="button" className="btn btn-primary" onClick={() => this.props.store.teamEdit = false}>Done</button>
         </div>
       </div>
     ]

@@ -3,15 +3,6 @@ import {observer} from "mobx-react"
 import '../../assets/App.scss';
 import '../../assets/Tasks.scss';
 
-const user_icons = [
-  "fas fa-square",
-  "fas fa-circle"
-]
-
-const user_icon_color = [
-  "red", "orange", "blue", "green"
-]
-
 export default class Messenger extends Component {
   constructor(props) {
     super(props)
@@ -24,6 +15,14 @@ export default class Messenger extends Component {
     this.onMessageEnter    = this.onMessageEnter.bind(this)
     this.onDelete          = this.onDelete.bind(this)
   }
+
+  getColor = (user_id) => {
+    if(user_id === this.props.store.userId) {
+      return this.props.store.userColor
+    } else {
+      return 'grey'
+    }
+  } 
 
   onTaskStateChange = (state) => {
     this.props.store.updateTaskState(state)
@@ -57,7 +56,7 @@ export default class Messenger extends Component {
     const messageList = Object.keys(messageMap).map((key, idx) => {
       const msgs = messageMap[key].map((msg, idx) => {
         return <div className="text" key={idx}>
-          <div className={user_icons[0] + " " + user_icon_color[msg.user_id] + " icon"}></div>
+          <div className={"fas fa-square " + this.getColor(msg.user_id) + " icon"}></div>
           {msg.text}
           </div>
       })
