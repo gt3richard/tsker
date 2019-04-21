@@ -6,8 +6,8 @@ const moment = require('moment');
 class TaskStore {
 
     isAuthenticated = false
-    userId = ""
-    accessToken = ""
+    userId = ''
+    accessToken = ''
     edit = false
     teamEdit = false
     
@@ -16,9 +16,10 @@ class TaskStore {
     tasks = []
     filteredTasks = []
     messages = []
-    activeTaskId = ""
-    messageTitle = ""
-    messageDescription = ""
+    activeTaskId = ''
+    taskState = ''
+    messageTitle = ''
+    messageDescription = ''
 
     getUser() {
         this.userData = {
@@ -36,9 +37,11 @@ class TaskStore {
     }
 
     getTask(id) {
+        const task = this.tasks.filter(f => f.id === id)[0]
         this.activeTaskId = id
-        this.messageTitle = this.tasks.filter(f => f.id === id)[0].title
-        this.messageDescription = this.tasks.filter(f => f.id === id)[0].description
+        this.messageTitle = task.title
+        this.messageDescription = task.description
+        this.taskState = task.state
 
         if(id === '1') {
             this.messages = [
@@ -63,6 +66,7 @@ class TaskStore {
 
     clearTask() {
         this.activeTaskId = ''
+        this.taskState = ''
         this.messageTitle = ''
         this.messageDescription = ''
         this.messages = []
@@ -71,6 +75,7 @@ class TaskStore {
     updateTaskState(state) {
         this.tasks.filter(f => f.id === this.activeTaskId)[0].state = state
         this.addMessage("Task is "+ state)
+        this.taskState = state
         this.filteredTasks = this.tasks
     }
 
@@ -137,6 +142,7 @@ decorate(TaskStore, {
     filteredTasks: observable,
     messages: observable,
     activeTaskId: observable,
+    taskState: observable,
     messageTitle: observable,
     messageDescription: observable,
     getTasks: action,
