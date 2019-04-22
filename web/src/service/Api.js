@@ -22,6 +22,25 @@ export function getUser(userId, accessToken, callback) {
     })
 }
 
+export function getManager(team, accessToken, callback) {
+    axios.get(`${url}/user?team=${team}`, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': accessToken
+        }
+    })
+    .then(response => {
+        if(response.status !== 200) { callback([])}
+        else { 
+            callback(response.data.Items)
+        }
+    }).catch(error => {
+        console.log(error)
+        callback([])
+    })
+}
+
 export function putUser(userId, team, role, color, tasks, accessToken, callback) {
     const body = { 
         Item: {

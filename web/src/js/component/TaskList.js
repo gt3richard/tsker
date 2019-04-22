@@ -27,8 +27,8 @@ export default class TaskList extends Component {
     this.onAddEnter = this.onAddEnter.bind(this)
   }
 
-  onClick = (id) => {
-    this.props.store.getTask(id)
+  onClick = (user_id, task_id) => {
+    this.props.store.getTask(user_id, task_id)
   }
   
   onSearch = (event) => {
@@ -45,12 +45,14 @@ export default class TaskList extends Component {
   }
 
   render() {
-    const taskList = this.props.store.filteredTasks.map((task, idx) => {
-      return <div className="task" key={idx} onClick={() => this.onClick(task.id)}>
-                <div className={user_icons[0] + " icon " + task_state_color[task.state]}></div>
-                {task.title}
-              </div>
-          })
+    const taskList = this.props.store.results.map((user, uidx) => {
+      return user.tasks.map((task, idx) => {
+        return <div className="task" key={idx} onClick={() => this.onClick(user.user_id, task.id)}>
+                  <div className={user_icons[0] + " icon " + task_state_color[task.state]}></div>
+                  {task.title}
+                </div>
+            })
+    })
 
     const addBox = [
       <div className="taskAddForm" key="taskAdd">
