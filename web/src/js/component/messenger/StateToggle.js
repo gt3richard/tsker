@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {observer} from "mobx-react"
 import '../../../assets/App.scss';
-import '../../../assets/Tasks.scss';
+import '../../../assets/Messenger.scss';
 
-export default class State extends Component {
+export default class StateToggle extends Component {
     constructor(props) {
         super(props)
     
@@ -32,4 +32,4 @@ export default class State extends Component {
     }
 }
 
-State = observer(State)
+StateToggle = observer(StateToggle)

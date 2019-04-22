@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import '../../../assets/App.scss';
-import '../../../assets/Tasks.scss';
+import '../../../assets/Messenger.scss';
 
-export default class DeleteConfirm extends Component {
+export default class DeleteConfirmModal extends Component {
     constructor(props) {
         super(props)
     

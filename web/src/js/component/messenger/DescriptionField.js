@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {observer} from "mobx-react";
 import '../../../assets/App.scss';
-import '../../../assets/Tasks.scss';
+import '../../../assets/Messenger.scss';
 
-export default class Description extends Component {
+export default class DescriptionField extends Component {
     render() {
         if(this.props.store.edit) {
             return (
@@ -21,4 +21,4 @@ export default class Description extends Component {
     }
 }
 
-Description = observer(Description)
+DescriptionField = observer(DescriptionField)

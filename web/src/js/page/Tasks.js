@@ -5,7 +5,7 @@ import '../../assets/Tasks.scss';
 
 import Intro from '../component/Intro.js'
 import Team from '../component/Team.js'
-import TaskList from '../component/TaskList.js'
+import TaskNav from '../component/TaskNav.js'
 import Messenger from '../component/Messenger.js'
 
 export default class Tasks extends Component {
@@ -16,7 +16,7 @@ export default class Tasks extends Component {
     const team = [<Team store={this.props.store} key="team"/>]
     const tasks = [
       <div className="row" key="tasks">
-        <TaskList store={this.props.store} />
+        <TaskNav store={this.props.store} />
         <Messenger store={this.props.store} />
       </div>
     ]

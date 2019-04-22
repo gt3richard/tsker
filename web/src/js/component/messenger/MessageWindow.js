@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {observer} from "mobx-react"
 import '../../../assets/App.scss';
-import '../../../assets/Tasks.scss';
+import '../../../assets/Messenger.scss';
 
-export default class Text extends Component {
+export default class MessageWindow extends Component {
 
     getColor = (user_id) => {
         switch(user_id) {
@@ -53,4 +53,4 @@ export default class Text extends Component {
     }
 }
 
-Text = observer(Text)
+MessageWindow = observer(MessageWindow)

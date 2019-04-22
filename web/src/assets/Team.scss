@@ -1,21 +1,22 @@
-.color {
+.team {
+    .color {
+        margin-top: 20px;
 
-    margin-top: 20px;
+        .col {
+            width: 55px;
+            height: 50px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
 
-    .col {
-        width: 55px;
-        height: 50px;
-        margin-left: 10px;
-        margin-right: 10px;
+        .col:hover, .active {
+            border-style: solid;
+            border-color: black;        
+        }
     }
 
-    .col:hover, .active {
-        border-style: solid;
-        border-color: black;        
+    .btn-done {
+        margin-top: 30px;
     }
-}
-
-.btn-done {
-    margin-top: 30px;
 }
 
