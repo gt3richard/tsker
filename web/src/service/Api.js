@@ -22,12 +22,13 @@ export function getUser(userId, accessToken, callback) {
     })
 }
 
-export function putUser(userId, team, role, tasks, accessToken, callback) {
+export function putUser(userId, team, role, color, tasks, accessToken, callback) {
     const body = { 
         Item: {
             'user_id': userId,
             'team': team,
             'role': role,
+            'color': color,
             'tasks': toJS(tasks)
         },
         TableName: 'tskley'

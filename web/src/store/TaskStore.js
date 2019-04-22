@@ -29,6 +29,7 @@ class TaskStore {
                 //Existing User
                 this.userTeam  = result.team
                 this.userRole  = result.role
+                this.userColor = result.color
                 this.tasks     = result.tasks
             } else {
                 //New User
@@ -93,7 +94,7 @@ class TaskStore {
         this.filteredTasks = this.tasks
 
         const callback = (result) => {}
-        putUser(this.userId, this.userTeam, this.userRole, this.tasks, this.accessToken, callback)
+        putUser(this.userId, this.userTeam, this.userRole, this.userColor, this.tasks, this.accessToken, callback)
     }
 
     addMessage(message) {
@@ -118,7 +119,7 @@ class TaskStore {
         this.filterTasks = this.tasks
 
         const callback = (result) => {}
-        putUser(this.userId, this.userTeam, this.userRole, this.tasks, this.accessToken, callback)
+        putUser(this.userId, this.userTeam, this.userRole, this.userColor, this.tasks, this.accessToken, callback)
     }
 
     updateDescription(description) {
@@ -131,7 +132,7 @@ class TaskStore {
         this.filterTasks = this.tasks
 
         const callback = (result) => {}
-        putUser(this.userId, this.userTeam, this.userRole, this.tasks, this.accessToken, callback)
+        putUser(this.userId, this.userTeam, this.userRole, this.userColor, this.tasks, this.accessToken, callback)
     }
 
     addTask(title) {
@@ -141,7 +142,7 @@ class TaskStore {
         this.filteredTasks = this.tasks
 
         const callback = (result) => {}
-        putUser(this.userId, this.userTeam, this.userRole, this.tasks, this.accessToken, callback)
+        putUser(this.userId, this.userTeam, this.userRole, this.userColor, this.tasks, this.accessToken, callback)
     }
 
     deleteTask() {
@@ -151,7 +152,7 @@ class TaskStore {
         this.edit = false
 
         const callback = (result) => {}
-        putUser(this.userId, this.userTeam, this.userRole, this.tasks, this.accessToken, callback)
+        putUser(this.userId, this.userTeam, this.userRole, this.userColor, this.tasks, this.accessToken, callback)
     } 
 
     filterTasks(search) {
@@ -165,7 +166,7 @@ class TaskStore {
 
         if(this.userTeam) {
             const callback = (result) => {}
-            putUser(this.userId, this.userTeam, this.userRole, this.tasks, this.accessToken, callback)
+            putUser(this.userId, this.userTeam, this.userRole, this.userColor, this.tasks, this.accessToken, callback)
         }
     }
 }
