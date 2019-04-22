@@ -43,11 +43,10 @@ export default class Authentication extends PureComponent {
     event.preventDefault();
     Auth.signOut(
     )
-    .then(data => console.log(data))
-      .then(()=>this.switchComponent("SignIn"))
-      .catch(err => {
-        console.log(err)
-      })
+    .then(()=>this.switchComponent("SignIn"))
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   // Handle changes to form inputs on sign-up, verification and sign-in

@@ -12,8 +12,8 @@ class TaskStore {
     teamEdit = false
     
     userTeam = ''
-    userRole = 'user'
-    userColor = 'blue'
+    userRole = ''
+    userColor = ''
     tasks = []
     filteredTasks = []
     messages = []
@@ -24,9 +24,20 @@ class TaskStore {
 
     getUser() {
         const callback = (result) => {
-            this.userTeam = result.team
-            this.userRole = result.role
-            this.tasks    = result.tasks
+
+            if(result !== undefined) {
+                //Existing User
+                this.userTeam  = result.team
+                this.userRole  = result.role
+                this.tasks     = result.tasks
+            } else {
+                //New User
+                this.teamEdit = true
+                this.userTeam  = ''
+                this.userRole  = 'user'
+                this.userColor = 'blue'
+                this.tasks     = []
+            }
 
             this.filteredTasks = this.tasks
         }
@@ -44,7 +55,11 @@ class TaskStore {
         this.taskState       = task.state
 
         const callback = (result) => {
-            this.messages = result.messages
+            if(result !== undefined) {
+                this.messages = result.messages
+            } else {
+                this.messages = []
+            }
         }
 
         if(this.taskId && this.accessToken) {
@@ -144,7 +159,14 @@ class TaskStore {
     }
 
     joinTeam(code) {
+        if(code === '123') {
+            this.userTeam = 'Team Blue'
+        }
 
+        if(this.userTeam) {
+            const callback = (result) => {}
+            putUser(this.userId, this.userTeam, this.userRole, this.tasks, this.accessToken, callback)
+        }
     }
 }
 

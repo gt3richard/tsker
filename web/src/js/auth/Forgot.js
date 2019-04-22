@@ -13,7 +13,6 @@ export default class Forgot extends Component {
       // Optional. Force user confirmation irrespective of existing alias. By default set to True.
       forceAliasCreation: true
     })
-      .then(data => console.log(data))
       .then(()=>this.props.switchComponent("ForgotVerify"))
       .catch(err => console.log(err));
   };

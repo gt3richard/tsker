@@ -12,13 +12,19 @@ export default class Team extends Component {
     }
 
     this.props.store.getUser()
+    this.onClick          = this.onClick.bind(this)
+    this.onCodeChange     = this.onCodeChange.bind(this)
+    this.onRoleChange     = this.onRoleChange.bind(this)
+    this.onColorSelection = this.onColorSelection.bind(this)
   }
 
   onClick = (event) => {
-    const code = event.target.value
-    if(code.length > 0) {
-      this.props.store.joinTeam(code)
-    }
+    this.props.store.joinTeam(this.state.code)
+    this.setState({code: ''})
+  }
+
+  onCodeChange = (event) => {
+    this.setState({code: event.target.value})
   }
 
   onRoleChange = (role) => {
@@ -36,8 +42,8 @@ export default class Team extends Component {
         <p className="lead">Use your team code to join a team.</p>
         <hr className="my-4" />
         <div className="input-group input-group-lg mb-3">
-          <input type="text" className="form-control" id="team-code" value={this.state.code} aria-describedby="inputGroup-sizing-default" />
-          <a className="btn btn-primary btn-lg" href="#" role="button">Join</a>
+          <input type="text" className="form-control" id="team-code" value={this.state.code} onChange={this.onCodeChange} aria-describedby="inputGroup-sizing-default" />
+          <a className="btn btn-primary btn-lg" href="#" role="button" onClick={this.onClick}>Join</a>
         </div>
       </div>
     ]
@@ -71,7 +77,7 @@ export default class Team extends Component {
 
     return (
         <div className="team">
-            {edit}
+            {(this.props.store.userTeam && edit) || join}
         </div>
     )
   }

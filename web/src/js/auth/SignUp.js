@@ -13,7 +13,6 @@ export default class SignUp extends Component {
       password,
       validationData: [] //optional
     })
-      .then(data => console.log(data))
       .then(()=>this.props.switchComponent("Return")) // switches Sign Up to Verification
       .catch(err => {
         console.log(err)
