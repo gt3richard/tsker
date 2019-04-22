@@ -6,10 +6,13 @@ import '../../../assets/Tasks.scss';
 export default class Text extends Component {
 
     getColor = (user_id) => {
-        if(user_id === this.props.store.userId) {
-          return this.props.store.userColor
-        } else {
-          return 'grey'
+        switch(user_id) {
+            case this.props.store.userId:
+                return this.props.store.userColor
+            case this.props.store.taskOwnerId:
+                return this.props.store.taskOwnerColor
+            default:
+                return 'grey'
         }
       } 
 

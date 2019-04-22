@@ -46,7 +46,7 @@ export default class TaskList extends Component {
 
   render() {
     const taskList = this.props.store.results.map((user, uidx) => {
-      return user.tasks.map((task, idx) => {
+      return user.tasks.filter(f => !this.props.store.taskFilter || (f.title.toLowerCase().includes(this.props.store.taskFilter))).map((task, idx) => {
         return <div className="task" key={idx} onClick={() => this.onClick(user.user_id, task.id)}>
                   <div className={user_icons[0] + " icon " + task_state_color[task.state]}></div>
                   {task.title}
