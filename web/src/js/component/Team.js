@@ -30,9 +30,6 @@ export default class Team extends Component {
         <hr className="my-4" />
         <RoleToggle store={this.props.store} />
         <ColorSelector store={this.props.store} />
-        <div className="btn-done">
-          <button type="button" className="btn btn-primary" onClick={() => this.props.store.teamEdit = false}>Done</button>
-        </div>
       </div>
     ]
 
