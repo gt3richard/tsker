@@ -11,7 +11,7 @@ export default class ColorSelector extends Component {
   }
 
   onColorSelection = (event) => {
-    this.props.store.userColor = event.target.id
+    this.props.store.updateUserColor(event.target.id)
   }
 
   render() {

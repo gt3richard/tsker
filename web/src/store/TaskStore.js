@@ -202,6 +202,18 @@ class TaskStore {
             putUser(this.userId, this.userTeam, this.userRole, this.userColor, this.tasks, this.accessToken, callback)
         }
     }
+
+    updateUserColor(color) {
+        this.userColor = color
+        const callback = (result) => {}
+        putUser(this.userId, this.userTeam, this.userRole, this.userColor, this.tasks, this.accessToken, callback)
+    }
+
+    updateUserRole(role) {
+        this.userRole = role
+        const callback = (result) => {}
+        putUser(this.userId, this.userTeam, this.userRole, this.userColor, this.tasks, this.accessToken, callback)
+    }
 }
 
 decorate(TaskStore, {
@@ -236,7 +248,9 @@ decorate(TaskStore, {
     updateDescription: action,
     addTask: action,
     deleteTask: action,
-    joinTeam: action
+    joinTeam: action,
+    updateUserColor: action,
+    updateUserRole: action
 })
 
 const store = new TaskStore();

@@ -12,9 +12,8 @@ export default class RoleToggle extends Component {
   }
 
   onRoleChange = (role) => {
-    this.props.store.userRole = role
+    this.props.store.updateUserRole(role)
   } 
-
 
   render() {
     return (
