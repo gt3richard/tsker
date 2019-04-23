@@ -77,36 +77,36 @@ export default class Authentication extends PureComponent {
 
   Navigation = () => {
     const homeButton = [
-      <li className={"nav-item " + (!this.props.store.edit && !this.props.store.teamEdit && "active")} >
+      <li className={"nav-item " + (!this.props.store.edit && !this.props.store.teamEdit && "active")} key="home">
         <div className="nav-link" onClick={this.handleHome}>Home</div>
       </li>
     ]
     const editButton = [
-      <li className={"nav-item " + (this.props.store.edit && "active")}>
+      <li className={"nav-item " + (this.props.store.edit && "active")} key="edit">
         <div className="nav-link" onClick={this.handleEdit}>Edit</div>
       </li>
     ]
     const teamButton = [
-      <li className={"nav-item " + (this.props.store.teamEdit && "active")}>
+      <li className={"nav-item " + (this.props.store.teamEdit && "active")} key="team">
         <div className="nav-link" onClick={this.handleTeam}>Team</div>
       </li>
     ]
     const logoutButton = [
-      <li className={"nav-item"}>
+      <li className={"nav-item"} key="logout">
         <div className="nav-link" onClick={this.handleLogout}>Logout</div>
       </li>
     ]
     return (
       <nav className="navbar navbar-expand-lg navbar-light">
             <a className="navbar-brand" href="/">Tskley</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav">
                 {homeButton}
                 {this.state.status === 'Authenticated' && teamButton}
-                {this.props.store.taskId && editButton}
+                {this.state.status === 'Authenticated' && this.props.store.taskId && editButton}
                 {this.state.status === 'Authenticated' && logoutButton}
               </ul>
             </div>            

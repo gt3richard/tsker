@@ -1,7 +1,6 @@
 .messenger {
     height: 100vh;
     width: 100vw;
-
     text-align: left;
 
     .title {
@@ -21,23 +20,20 @@
     .btn-group-toggle {
         text-align: center;
         display: block;
-        margin-top: 10px;
-    }
 
-    .btn-state {
-        margin-left: 20px;
-        margin-right: 20px;
-        margin-top: 10px;
-        border-radius: 5px !important;        
-    }
-
-    .btn-group-toggle {
         .completed.active {
             background: green !important;
         }
 
         .blocked.active {
             background-color:red !important;
+        }
+
+        .btn-state {
+            margin-left: 0px;
+            margin-top: 10px;
+            width: 40vw;
+            border-radius: 5px !important;
         }
     }
 

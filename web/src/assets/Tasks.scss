@@ -34,6 +34,14 @@
         .icon {
             color: grey;
         }
+
+        .icon.green {
+            color: green !important;
+        }
+
+        .icon.red {
+            color:red !important;
+        }
     }
 
     .task:hover, .taskAdd:hover {

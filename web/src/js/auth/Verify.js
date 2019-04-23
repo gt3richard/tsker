@@ -11,7 +11,6 @@ export default class Verify extends Component {
       // Optional. Force user confirmation irrespective of existing alias. By default set to True.
       forceAliasCreation: true
     })
-      .then(data => console.log(data))
       .then(()=>this.props.switchComponent("SignIn"))
       .catch(err => console.log(err));
   };
@@ -24,7 +23,6 @@ export default class Verify extends Component {
       // Optional. Force user confirmation irrespective of existing alias. By default set to True.
       forceAliasCreation: true
     })
-      .then(data => console.log(data))
       .then(()=>this.props.switchComponent("Verify"))
       .catch(err => console.log(err));
   };

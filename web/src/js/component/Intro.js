@@ -8,8 +8,8 @@ export default class Intro extends Component {
     return (
         <div className="intro">
             <div className="intro-title">
-                <h2>Simple Task Management</h2>
-                <p>A task messenger.</p>
+                <h2>Task Messenger</h2>
+                <p>Simple team task management</p>
             </div>
             <hr/>
             <footer>
