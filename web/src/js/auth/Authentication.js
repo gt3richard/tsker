@@ -61,29 +61,55 @@ export default class Authentication extends PureComponent {
     this.setState({ errorMessage });
   }
 
+  handleHome = event => {
+    this.props.store.edit = false
+    this.props.store.teamEdit = false
+  }
+
   handleEdit = event => {
     this.props.store.edit = !this.props.store.edit
   }
 
   handleTeam = event => {
-    this.props.store.teamEdit = true
+    this.props.store.teamEdit = !this.props.store.teamEdit
+    this.props.store.edit = false
   }
 
   Navigation = () => {
-    const editButton = <button className="btn btn-outline-dark my-2" onClick={this.handleEdit} type="button">Edit</button>
-    const teamButton = <button className="btn btn-outline-dark my-2" onClick={this.handleTeam} type="button">Team</button>
+    const homeButton = [
+      <li className={"nav-item " + (!this.props.store.edit && !this.props.store.teamEdit && "active")} >
+        <a className="nav-link" onClick={this.handleHome}>Home <span class="sr-only">(current)</span></a>
+      </li>
+    ]
+    const editButton = [
+      <li className={"nav-item " + (this.props.store.edit && "active")}>
+        <a className="nav-link" onClick={this.handleEdit}>Edit</a>
+      </li>
+    ]
+    const teamButton = [
+      <li className={"nav-item " + (this.props.store.teamEdit && "active")}>
+        <a className="nav-link" onClick={this.handleTeam}>Team</a>
+      </li>
+    ]
+    const logoutButton = [
+      <li className={"nav-item"}>
+        <a className="nav-link" onClick={this.handleLogout}>Logout</a>
+      </li>
+    ]
     return (
       <nav className="navbar navbar-expand-lg navbar-light">
             <a className="navbar-brand" href="/">Tskley</a>
-            {this.state.status === 'Authenticated' && teamButton}
-            {this.props.store.taskId && editButton}
-            <input
-              hidden = {this.state.status !== 'Authenticated'}
-              type="button" 
-              className="btn btn-outline-dark my-2 my-sm-0" 
-              onClick={this.handleLogout} 
-              value="Logout"
-            />
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                {homeButton}
+                {this.state.status === 'Authenticated' && teamButton}
+                {this.props.store.taskId && editButton}
+                {this.state.status === 'Authenticated' && logoutButton}
+              </ul>
+            </div>            
           </nav>
     );
   }
