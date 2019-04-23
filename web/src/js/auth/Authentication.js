@@ -78,22 +78,22 @@ export default class Authentication extends PureComponent {
   Navigation = () => {
     const homeButton = [
       <li className={"nav-item " + (!this.props.store.edit && !this.props.store.teamEdit && "active")} >
-        <a className="nav-link" onClick={this.handleHome}>Home <span class="sr-only">(current)</span></a>
+        <div className="nav-link" onClick={this.handleHome}>Home</div>
       </li>
     ]
     const editButton = [
       <li className={"nav-item " + (this.props.store.edit && "active")}>
-        <a className="nav-link" onClick={this.handleEdit}>Edit</a>
+        <div className="nav-link" onClick={this.handleEdit}>Edit</div>
       </li>
     ]
     const teamButton = [
       <li className={"nav-item " + (this.props.store.teamEdit && "active")}>
-        <a className="nav-link" onClick={this.handleTeam}>Team</a>
+        <div className="nav-link" onClick={this.handleTeam}>Team</div>
       </li>
     ]
     const logoutButton = [
       <li className={"nav-item"}>
-        <a className="nav-link" onClick={this.handleLogout}>Logout</a>
+        <div className="nav-link" onClick={this.handleLogout}>Logout</div>
       </li>
     ]
     return (

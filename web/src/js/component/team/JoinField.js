@@ -29,7 +29,7 @@ export default class JoinField extends Component {
     return (
        <div className="input-group input-group-lg mb-3">
           <input type="text" className="form-control" id="team-code" value={this.state.code} onChange={this.onCodeChange} aria-describedby="inputGroup-sizing-default" />
-          <a className="btn btn-primary btn-lg" href="#" role="button" onClick={this.onClick}>Join</a>
+          <div className="btn btn-primary btn-lg" role="button" onClick={this.onClick}>Join</div>
         </div>
     )
   }

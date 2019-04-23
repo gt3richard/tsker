@@ -131,6 +131,7 @@ class TaskStore {
                 }
                 m.state = state
             }
+            return undefined
         })
         this.addMessage("Task is "+ taskMap[state])
         this.taskState = state
@@ -145,6 +146,7 @@ class TaskStore {
             if(m.id === this.taskId) {
                 m.title = title
             }
+            return undefined
         })
         this.taskTitle = title
 
@@ -158,6 +160,7 @@ class TaskStore {
             if(m.id === this.taskId) {
                 m.description = description
             }
+            return undefined
         })
         this.taskDescription = description
 
